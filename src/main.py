@@ -7,7 +7,7 @@ Usage:
 import argparse
 
 from src.config import DEFAULT_INPUT_FILE, DEFAULT_OUTPUT_DIR
-from src.processors.presidio_processor import PresidioProcessor
+from src.processors.protegrity_processor import ProtegrityProcessor
 from src.app import run
 
 
@@ -27,9 +27,7 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    # This is the only line that mentions a concrete processor.
-    # Swap PresidioProcessor → ProtegrityProcessor here for migration.
-    processor = PresidioProcessor()
+    processor = ProtegrityProcessor()
 
     run(processor, args.input, args.output_dir)
 

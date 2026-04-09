@@ -1,4 +1,4 @@
 from src.processors.base import BaseProcessor
-from src.processors.presidio_processor import PresidioProcessor
+from src.processors.protegrity_processor import ProtegrityProcessor
 
-__all__ = ["BaseProcessor", "PresidioProcessor"]
+__all__ = ["BaseProcessor", "ProtegrityProcessor"]
