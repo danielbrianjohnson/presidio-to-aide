@@ -35,7 +35,6 @@ class PresidioProcessor(BaseProcessor):
         remove or replace individually.
         """
         self._add_account_number_recognizer()
-        self._add_invoice_recognizer()
 
     def _add_account_number_recognizer(self) -> None:
         """Detect simple numeric account numbers (8+ digits)."""
@@ -51,26 +50,13 @@ class PresidioProcessor(BaseProcessor):
         )
         self._analyzer.registry.add_recognizer(recognizer)
 
-    def _add_invoice_recognizer(self) -> None:
-        """Detect invoice / order IDs like INV-2026-1042."""
-        invoice_pattern = Pattern(
-            name="invoice_pattern",
-            regex=r"\bINV-\d{4}-\d{3,6}\b",
-            score=0.7,
-        )
-        recognizer = PatternRecognizer(
-            supported_entity="INVOICE_ID",
-            patterns=[invoice_pattern],
-        )
-        self._analyzer.registry.add_recognizer(recognizer)
-
     # ------------------------------------------------------------------
     # Core processing
     # ------------------------------------------------------------------
 
     def process_text(self, text: str) -> ProcessResult:
         """Analyze and anonymize *text*, returning a ProcessResult."""
-        entities_to_detect = PRESIDIO_ENTITIES + ["ACCOUNT_NUMBER", "INVOICE_ID"]
+        entities_to_detect = PRESIDIO_ENTITIES + ["ACCOUNT_NUMBER"]
 
         analyzer_results = self._analyzer.analyze(
             text=text,

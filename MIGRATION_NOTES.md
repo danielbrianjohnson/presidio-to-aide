@@ -49,6 +49,16 @@ original  = session.unprotect(protected, "name")
 
 ---
 
+### Intro (before touching the terminal)
+
+> "Microsoft Presidio is a really solid open-source library for detecting and redacting PII. A lot of teams use it, and for good reason. It works."
+>
+> "What we're going to look at today is how Protegrity Developer Edition builds on top of that. Dev Edition actually uses Presidio internally as part of its detection pipeline, so you're not throwing anything away. But it layers on tokenization, so your protected data still has utility for AI and analytics. And it gives you reversible unprotect with role-based access, so the right people can get back to the original values when they need to."
+>
+> "We're going to start with a working Presidio project, migrate it to Dev Edition in about six file changes, and then show what that unlocks. Let's get into it."
+
+---
+
 ### Part 1 — Presidio baseline
 
 **Branch:** `main`
@@ -69,7 +79,7 @@ source .venv/bin/activate
 cat ticket.txt
 ```
 
-> "Here's our starting point — a plain-text support ticket.  It has a customer name, email, phone number, SSN, account number, a credit card number, and an invoice ID.  This is the kind of thing a support team might receive every day.  We need to sanitize it before it goes downstream."
+> "Here's our starting point — a plain-text support ticket.  It has a customer name, email, phone number, SSN, account number, and a credit card number.  This is the kind of thing a support team might receive every day.  We need to sanitize it before it goes downstream."
 
 **Step 2 — Run the Presidio baseline:**
 
@@ -81,7 +91,7 @@ python -m src.main --input ticket.txt --output-dir output
 >
 > *[wait for output]*
 >
-> "Presidio found 8 entities across 7 types.  It correctly identified the person name, email, phone numbers, SSN, credit card, and even our custom account number and invoice ID.  The sanitized output replaces each value with a placeholder like `<PERSON>` or `<US_SSN>`."
+> "Presidio found 7 entities across 6 types.  It correctly identified the person name, email, phone numbers, SSN, credit card, and even our custom account number.  The sanitized output replaces each value with a placeholder like `<PERSON>` or `<US_SSN>`."
 
 **Step 3 — Show the sanitized output:**
 
@@ -105,7 +115,7 @@ cat output/sanitized_ticket.txt
 
 **Branch:** still on `main` (we're looking at the diff, not switching yet)
 
-**Step 5 — Show the migration commit:**
+**Step 5 — Show the migration commits:**
 
 ```bash
 git log main..protegrity --oneline
@@ -121,26 +131,34 @@ git diff main..protegrity~1 --stat
 
 > "Six files changed.  That's the entire migration.  Let's walk through them."
 
-**Step 7 — Show the processor swap:**
+**Step 7 — Show the processor swap (VS Code diff):**
 
 ```bash
-git diff main..protegrity~1 -- src/processors/presidio_processor.py src/processors/protegrity_processor.py
+git show main:src/processors/presidio_processor.py > /tmp/presidio_old.py
+git show protegrity~1:src/processors/protegrity_processor.py > /tmp/protegrity_new.py
+code --diff /tmp/presidio_old.py /tmp/protegrity_new.py
 ```
 
-> "This is the core change.  We delete `presidio_processor.py` — that's 117 lines where we were manually setting up Presidio's AnalyzerEngine, AnonymizerEngine, and custom recognizers.  We replace it with `protegrity_processor.py` — 62 lines.  It calls `find_and_protect()` — one function that does detection and tokenization in a single call.  Presidio is still running inside Dev Edition's Docker containers doing detection, we just don't manage it anymore."
+> *[VS Code opens a side-by-side diff tab with syntax highlighting]*
+>
+> "This is the core change.  On the left is `presidio_processor.py` — 117 lines where we were manually setting up Presidio's AnalyzerEngine, AnonymizerEngine, and custom recognizers.  On the right is `protegrity_processor.py` — 62 lines.  It calls `find_and_protect()` — one function that does detection and tokenization in a single call.  Presidio is still running inside Dev Edition's Docker containers doing detection, we just don't manage it anymore."
 
-**Step 8 — Show the config and import changes:**
+**Step 8 — Show the config change (VS Code diff):**
 
 ```bash
-git diff main..protegrity~1 -- src/config.py src/processors/__init__.py src/main.py
+git show main:src/config.py > /tmp/config_old.py
+git show protegrity~1:src/config.py > /tmp/config_new.py
+code --diff /tmp/config_old.py /tmp/config_new.py
 ```
 
-> "The rest is boilerplate.  Config swaps Presidio settings for Protegrity endpoint and entity map.  The `__init__` and `main.py` each swap one import line.  That's it — three lines of actual logic changed."
+> "Config swaps Presidio settings for the Protegrity endpoint URL and entity map.  Simpler — no language setting, no placeholder template."
 
-**Step 9 — Show the requirements change:**
+**Step 9 — Show the requirements change (VS Code diff):**
 
 ```bash
-git diff main..protegrity~1 -- requirements.txt
+git show main:requirements.txt > /tmp/req_old.txt
+git show protegrity~1:requirements.txt > /tmp/req_new.txt
+code --diff /tmp/req_old.txt /tmp/req_new.txt
 ```
 
 > "Dependencies get simpler.  We drop `presidio-analyzer`, `presidio-anonymizer` — and the 560MB spaCy model download.  We add one dependency: `protegrity-developer-python`, which talks to the Dev Edition Docker services."
@@ -151,6 +169,8 @@ git diff main..protegrity~1 -- requirements.txt
 git diff main..protegrity~1 -- src/app.py src/models.py src/io_utils.py src/reporters/ src/processors/base.py
 ```
 
+> *[empty output]*
+>
 > "And here's the payoff of the clean architecture — `app.py`, `models.py`, `io_utils.py`, `base.py`, the reporters — zero changes.  The processor abstraction did its job.  The rest of the app doesn't know or care whether Presidio or Protegrity is doing the work."
 >
 > "Same CLI, same output format, same everything.  Just a different engine under the hood."
@@ -166,7 +186,7 @@ git checkout protegrity
 ```
 
 > Confirm Dev Edition Docker services are running:
-> `docker compose -f /path/to/protegrity-developer-edition/docker-compose.yml ps`
+> `docker compose -f ../../protegrity_editions/protegrity-developer-edition/docker-compose.yml ps`
 >
 > Confirm protegrity module is installed:
 > `pip install protegrity-developer-python`
@@ -191,6 +211,8 @@ cat output/sanitized_ticket.txt
 
 > "This is fundamentally different from what Presidio did.  The data is protected, not destroyed.  A downstream system can still see that there's a person, a phone number, an SSN — the structure is preserved.  But the actual values are tokens."
 >
+> "And because the tokens are format-preserving — names still look like names, phone numbers still look like phone numbers — the data still has utility.  You can feed this into an AI model for routing, sentiment analysis, or trend detection and it has the context it needs to do its job.  With irreversible redaction, every customer is the same `<PERSON>` placeholder — the model loses the ability to distinguish between customers, correlate records, or learn patterns across tickets.  Tokenization keeps that analytical value intact while still protecting the real PII."
+>
 > "And Presidio is still running inside Dev Edition doing detection — along with additional models — we just don't manage it anymore.  Detection and protection happened in one API call."
 
 ---
@@ -209,13 +231,25 @@ git diff protegrity~1..protegrity --stat
 
 > "Four small files.  We added `unprotect_text()` to the processor, a `run_unprotect` workflow, and protect/unprotect subcommands.  This was only 70 lines of new code — and it gives us a capability Presidio simply doesn't have."
 
-**Step 15 — Run unprotect:**
+**Step 15 — Try unprotect as an unauthorized role:**
 
 ```bash
-python -m src.main unprotect --input output/sanitized_ticket.txt --output-dir output/recovered
+python -m src.main unprotect --role ai-support-agent --input output/sanitized_ticket.txt --output-dir output/recovered
 ```
 
-> "Now here's what Presidio simply cannot do.  I'm going to take that protected ticket and unprotect it — restore the original values."
+> "Now let's see what happens when an unauthorized user tries to reverse the tokenization.  I'm requesting unprotect as an `ai-support-agent`."
+>
+> *[wait for output — access denied]*
+>
+> "Access denied.  The AI support agent can work with the protected ticket — it can see the structure, route it, summarize it — but it can't see the original PII.  In production, this is enforced by Protegrity's policy engine."
+
+**Step 16 — Unprotect as an authorized human support agent:**
+
+```bash
+python -m src.main unprotect --role human-support-agent --input output/sanitized_ticket.txt --output-dir output/recovered
+```
+
+> "Now let's try as a `human-support-agent` — an authorized role."
 >
 > *[wait for output]*
 
@@ -227,7 +261,7 @@ cat output/recovered/restored_ticket.txt
 
 > "The original data is back — `Sarah Johnson`, the real SSN, the real credit card number.  The `find_and_unprotect()` API recognized the entity tags, sent the tokens to the protection service, and got back the originals."
 >
-> "With Presidio, once you redact, the data is gone forever.  With Protegrity, protection is reversible — and in a production deployment, that reversal is controlled by policies and user roles."
+> "With Presidio, once you redact, the data is gone forever.  With Protegrity, protection is reversible — and who can reverse it is controlled by role-based policies.  The AI agent could work with the ticket but never see the real PII.  The human support agent can, when they need to."
 
 ---
 
@@ -239,7 +273,9 @@ cat output/recovered/restored_ticket.txt
 >
 > "Presidio is still running inside Dev Edition doing detection, but now it's managed for us, augmented with additional models, and paired with a protection layer that gives us reversible tokenization and unprotect."
 >
-> "Then, in a second small commit, we added the unprotect capability — something Presidio can't do at all.  That's the real payoff of the migration."
+> "The protected data isn't dead data — it's still usable.  AI and analytics pipelines get format-preserving tokens they can work with, not generic placeholders that strip away all context.  And when an authorized user needs the real values, they can get them back."
+>
+> "Then, in a second small commit, we added the unprotect capability with role-based access control — something Presidio can't do at all.  That's the real payoff of the migration."
 
 ---
 
@@ -252,15 +288,16 @@ cat output/recovered/restored_ticket.txt
 | Show Presidio output | `main` | `cat output/sanitized_ticket.txt` |
 | Show commits | `main` | `git log main..protegrity --oneline` |
 | Migration diff summary | `main` | `git diff main..protegrity~1 --stat` |
-| Diff processors | `main` | `git diff main..protegrity~1 -- src/processors/presidio_processor.py src/processors/protegrity_processor.py` |
-| Diff config/imports | `main` | `git diff main..protegrity~1 -- src/config.py src/processors/__init__.py src/main.py` |
-| Diff requirements | `main` | `git diff main..protegrity~1 -- requirements.txt` |
+| Diff processor (VS Code) | `main` | `git show main:src/processors/presidio_processor.py > /tmp/presidio_old.py && git show protegrity~1:src/processors/protegrity_processor.py > /tmp/protegrity_new.py && code --diff /tmp/presidio_old.py /tmp/protegrity_new.py` |
+| Diff config (VS Code) | `main` | `git show main:src/config.py > /tmp/config_old.py && git show protegrity~1:src/config.py > /tmp/config_new.py && code --diff /tmp/config_old.py /tmp/config_new.py` |
+| Diff requirements (VS Code) | `main` | `git show main:requirements.txt > /tmp/req_old.txt && git show protegrity~1:requirements.txt > /tmp/req_new.txt && code --diff /tmp/req_old.txt /tmp/req_new.txt` |
 | Diff unchanged files | `main` | `git diff main..protegrity~1 -- src/app.py src/models.py src/io_utils.py src/reporters/ src/processors/base.py` |
 | Switch branch | — | `git checkout protegrity` |
 | Run protect | `protegrity` | `python -m src.main protect --input ticket.txt --output-dir output` |
 | Show protected output | `protegrity` | `cat output/sanitized_ticket.txt` |
 | Unprotect commit diff | `protegrity` | `git diff protegrity~1..protegrity --stat` |
-| Run unprotect | `protegrity` | `python -m src.main unprotect --input output/sanitized_ticket.txt --output-dir output/recovered` |
+| Run unprotect (denied) | `protegrity` | `python -m src.main unprotect --role ai-support-agent --input output/sanitized_ticket.txt --output-dir output/recovered` |
+| Run unprotect (authorized) | `protegrity` | `python -m src.main unprotect --role human-support-agent --input output/sanitized_ticket.txt --output-dir output/recovered` |
 | Show restored output | `protegrity` | `cat output/recovered/restored_ticket.txt` |
 
 ---
@@ -295,7 +332,7 @@ cat output/recovered/restored_ticket.txt
 | `src/processors/base.py`            | Add `unprotect_text()` with `NotImplementedError` default |
 | `src/processors/protegrity_processor.py` | Add `unprotect_text()` implementation       |
 | `src/app.py`                        | Add `run_unprotect()` workflow                |
-| `src/main.py`                       | Add `protect`/`unprotect` subcommands         |
+| `src/main.py`                       | Add `protect`/`unprotect` subcommands + `--role` flag |
 
 ## Step-by-step migration
 
@@ -304,11 +341,11 @@ cat output/recovered/restored_ticket.txt
 Protegrity Developer Edition runs as Docker containers.  Before coding:
 
 ```bash
-# Clone the Dev Edition repo
-git clone https://github.com/Protegrity-Developer-Edition/protegrity-developer-edition.git
+# Dev Edition is already cloned at:
+# ../../protegrity_editions/protegrity-developer-edition
 
 # Start the services
-cd protegrity-developer-edition
+cd ../../protegrity_editions/protegrity-developer-edition
 docker compose up -d
 
 # Install the Python module
