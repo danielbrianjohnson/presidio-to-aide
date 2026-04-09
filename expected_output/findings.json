@@ -1,0 +1,15 @@
+{
+  "processor": "presidio",
+  "total_findings": 8,
+  "findings": [
+    {"entity_type": "EMAIL_ADDRESS", "start": 31, "end": 56, "score": 1.0, "original_value": "sarah.johnson@example.com"},
+    {"entity_type": "CREDIT_CARD", "start": 199, "end": 218, "score": 1.0, "original_value": "4111-1111-1111-1111"},
+    {"entity_type": "PERSON", "start": 10, "end": 23, "score": 0.85, "original_value": "Sarah Johnson"},
+    {"entity_type": "US_SSN", "start": 82, "end": 93, "score": 0.85, "original_value": "539-48-2017"},
+    {"entity_type": "ACCOUNT_NUMBER", "start": 110, "end": 118, "score": 0.85, "original_value": "99881234"},
+    {"entity_type": "PHONE_NUMBER", "start": 64, "end": 76, "score": 0.75, "original_value": "415-555-0199"},
+    {"entity_type": "INVOICE_ID", "start": 159, "end": 172, "score": 0.7, "original_value": "INV-2026-1042"},
+    {"entity_type": "PHONE_NUMBER", "start": 327, "end": 339, "score": 0.4, "original_value": "415-555-0199"}
+  ],
+  "notes": []
+}

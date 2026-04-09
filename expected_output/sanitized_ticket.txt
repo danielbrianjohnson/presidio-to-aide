@@ -1,0 +1,8 @@
+Customer: <PERSON>
+Email: <EMAIL_ADDRESS>
+Phone: <PHONE_NUMBER>
+SSN: <US_SSN>
+Account Number: <ACCOUNT_NUMBER>
+
+Issue:
+I was charged twice for invoice <INVOICE_ID>. My credit card ending in <CREDIT_CARD> was billed on 03/28/2026 and again on 03/29/2026. Please help update my billing profile and call me back at <PHONE_NUMBER>.

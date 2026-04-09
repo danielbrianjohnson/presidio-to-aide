@@ -1,0 +1,8 @@
+Customer: Sarah Johnson
+Email: sarah.johnson@example.com
+Phone: 415-555-0199
+SSN: 539-48-2017
+Account Number: 99881234
+
+Issue:
+I was charged twice for invoice INV-2026-1042. My credit card ending in 4111-1111-1111-1111 was billed on 03/28/2026 and again on 03/29/2026. Please help update my billing profile and call me back at 415-555-0199.
