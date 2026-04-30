@@ -53,11 +53,11 @@ This project has two audiences and two publishing channels. The content is tailo
 |-------|--------|----------|
 | Presidio community blog post | Draft complete | `docs/BLOG_POST_presidio_community.md` |
 | Protegrity blog post | Draft complete | `docs/BLOG_POST_protegrity.md` |
-| Demo video | Not started | TBD (YouTube?) |
+| Demo video | Complete, ready to post | YouTube (TBD), current: [SharePoint link](https://protegrity-my.sharepoint.com/personal/kalai_leauanae_protegrity_com/_layouts/15/stream.aspx?id=%2Fpersonal%2Fkalai%5Fleauanae%5Fprotegrity%5Fcom%2FDocuments%2FMicrosoft%20Teams%20Chat%20Files%2FPresidioDemo%5FAIDevEd%2Emp4) |
 | GitHub repo (personal) | Live | https://github.com/danielbrianjohnson/presidio-to-aide |
 | AIDE community-solutions PR | Not started | Protegrity-Developer-Edition org repo |
 | AIDE GitHub Discussion | Not started | https://github.com/orgs/Protegrity-Developer-Edition/discussions |
-| Presidio GitHub Discussion | Not started | microsoft/presidio discussions |
+| Presidio GitHub Discussion | Not started | https://github.com/microsoft/presidio/discussions |
 
 ---
 
