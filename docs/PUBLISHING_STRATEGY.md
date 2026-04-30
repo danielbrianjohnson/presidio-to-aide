@@ -69,7 +69,23 @@ This project has two audiences and two publishing channels. The content is tailo
 4. **Submit PR to AIDE repo** - per publishing guidelines
 5. **Protegrity blog** - hand off to marketing (Auria/Franz for hook/angle)
 6. **Update links** - swap video placeholder in README + blog posts with YouTube URL before merging
-7. **LinkedIn/social** - once Protegrity post is live
+7. **Update Protegrity docs/site** - add Presidio mention to developer docs and capabilities pages (see below)
+8. **LinkedIn/social** - once Protegrity post is live
+
+---
+
+## Protegrity Docs/Site Updates
+
+Presidio is currently only mentioned on one small card at https://www.protegrity.com/capabilities/find-and-protect. It's not referenced anywhere on https://developer.docs.protegrity.com/.
+
+If we're publishing blog posts that say "AIDE uses Presidio internally," the docs should reflect that too. Otherwise readers land on developer docs and can't find any confirmation.
+
+**Suggested updates:**
+- [ ] developer.docs.protegrity.com: mention Presidio as one of the detection models in the Data Discovery / AIDE section
+- [ ] protegrity.com/capabilities/find-and-protect: expand beyond the single card to clarify how Presidio fits into the broader discovery engine
+- [ ] Any AIDE getting-started guide: note that Presidio users get continuity (their existing detection accuracy carries over)
+
+**Owner:** TBD (docs team? product marketing?)
 
 ---
 
@@ -78,6 +94,7 @@ This project has two audiences and two publishing channels. The content is tailo
 - Who owns the Protegrity blog post editing/publication? (Auria? Franz? Marketing team?)
 - Do we also want a short highlight reel cut from the full walkthrough video?
 - Timing: coordinate Presidio + Protegrity posts, or stagger them?
+- Who owns the developer docs update re: Presidio mention?
 
 ---
 
