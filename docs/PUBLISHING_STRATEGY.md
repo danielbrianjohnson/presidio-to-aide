@@ -64,11 +64,12 @@ This project has two audiences and two publishing channels. The content is tailo
 ## Sequencing
 
 1. **Finalize blog posts** - incorporate any remaining feedback
-2. **Record demo video** - walkthrough of protect/unprotect + branch diff
+2. **Post video to YouTube** - coordinate timing with blog publication
 3. **Post to Presidio community** - GitHub Discussion, link repo + blog post
 4. **Submit PR to AIDE repo** - per publishing guidelines
 5. **Protegrity blog** - hand off to marketing (Auria/Franz for hook/angle)
-6. **LinkedIn/social** - once Protegrity post is live
+6. **Update links** - swap video placeholder in README + blog posts with YouTube URL before merging
+7. **LinkedIn/social** - once Protegrity post is live
 
 ---
 
