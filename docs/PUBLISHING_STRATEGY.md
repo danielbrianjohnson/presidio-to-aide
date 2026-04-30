@@ -38,6 +38,7 @@ This project has two audiences and two publishing channels. The content is tailo
 
 **Where to post:**
 - [ ] protegrity.com/blog (marketing team manages publication)
+- [ ] GitHub Discussion on [Protegrity-Developer-Edition](https://github.com/orgs/Protegrity-Developer-Edition/discussions) (per publishing guidelines)
 - [ ] LinkedIn (promotion once live)
 
 **Tone:** Narrative/story. Customer problem, solution, outcome. Still technical enough to be credible but accessible to non-developers.
@@ -55,7 +56,7 @@ This project has two audiences and two publishing channels. The content is tailo
 | Demo video | Not started | TBD (YouTube?) |
 | GitHub repo (personal) | Live | https://github.com/danielbrianjohnson/presidio-to-aide |
 | AIDE community-solutions PR | Not started | Protegrity-Developer-Edition org repo |
-| GitHub Discussion post (AIDE) | Not started | Per publishing guidelines |
+| AIDE GitHub Discussion | Not started | https://github.com/orgs/Protegrity-Developer-Edition/discussions |
 | Presidio GitHub Discussion | Not started | microsoft/presidio discussions |
 
 ---
