@@ -37,7 +37,7 @@ This project has two audiences and two publishing channels. The content is tailo
 - Repo link for technical readers who want to dig in
 
 **Where to post:**
-- [ ] protegrity.com/blog (marketing team manages publication)
+- [ ] Protegrity blog (exact URL TBD, marketing team manages publication)
 - [ ] GitHub Discussion on [Protegrity-Developer-Edition](https://github.com/orgs/Protegrity-Developer-Edition/discussions) (per publishing guidelines)
 - [ ] LinkedIn (promotion once live)
 
