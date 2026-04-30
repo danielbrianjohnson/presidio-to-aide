@@ -4,7 +4,9 @@ A CLI tool that detects and protects PII in plain-text support tickets using Pro
 
 ## Demo
 
-<!-- TODO: Add demo video link -->
+[![Watch the demo](https://img.shields.io/badge/Video-Watch%20Demo-red?style=for-the-badge&logo=youtube)](VIDEO_URL_HERE)
+
+<!-- Replace VIDEO_URL_HERE with the YouTube/Loom link once posted -->
 
 ## Quickstart
 
