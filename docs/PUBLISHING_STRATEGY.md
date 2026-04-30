@@ -76,9 +76,7 @@ This project has two audiences and two publishing channels. The content is tailo
 ## Open Questions
 
 - Who owns the Protegrity blog post editing/publication? (Auria? Franz? Marketing team?)
-- Do we want a dev.to cross-post for the Presidio version?
-- Video format: full walkthrough vs. short highlight reel?
-- Reddit: worth the effort or skip for now?
+- Do we also want a short highlight reel cut from the full walkthrough video?
 - Timing: coordinate Presidio + Protegrity posts, or stagger them?
 
 ---
@@ -88,6 +86,7 @@ This project has two audiences and two publishing channels. The content is tailo
 | Person | Role |
 |--------|------|
 | Dan | Author, repo owner, demo builder |
+| Parimal | PO |
 | Auria | Marketing hook/angle (Protegrity post) |
 | Franz | Potential input on Protegrity post |
 | Ran | AIDE shortform credit |
