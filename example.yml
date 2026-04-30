@@ -1,0 +1,25 @@
+name: Presidio to AIDE Migration Demo
+slug: presidio-to-aide
+category: data-protection
+owner: danielbrianjohnson
+difficulty: beginner
+runtime: python3.12
+languages:
+  - python
+features:
+  - discovery
+  - tokenization
+  - detokenization
+  - role-based-access
+products:
+  - AI Developer Edition
+  - Data Discovery
+  - Data Protection
+summary: >
+  A CLI tool that sanitizes PII in support tickets. Demonstrates migrating
+  from Microsoft Presidio (irreversible redaction) to Protegrity AI Developer
+  Edition (reversible, format-preserving tokenization with role-based unprotect).
+security_notes: >
+  No real PII is used. The sample ticket contains entirely synthetic data.
+  The .env.example documents all required environment variables. No secrets
+  are committed to the repository.
