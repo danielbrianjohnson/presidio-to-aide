@@ -76,4 +76,4 @@ Protegrity AI Developer Edition gives you detection (powered by Presidio and add
 
 ---
 
-*Want to see the full pipeline in action? [Watch the walkthrough demo] or explore the [code on GitHub].*
+*Want to see the full pipeline in action? [Watch the walkthrough demo] or explore the [code on GitHub](https://github.com/danielbrianjohnson/presidio-to-aide).*

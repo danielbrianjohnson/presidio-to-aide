@@ -155,7 +155,13 @@ python -m src.main unprotect --input output/sanitized_ticket.txt --output-dir ou
 | `protegrity` | Code-only: the 6-file migration from Presidio to AIDE |
 | `presidio` | Code-only: original Presidio baseline |
 
-Diff the migration: `git diff presidio..protegrity`
+To see the clean 6-file migration diff:
+
+```bash
+git diff presidio..protegrity
+```
+
+> **Note:** This repo is also published under the [Protegrity Developer Edition community-solutions](https://github.com/Protegrity-Developer-Edition) repository. The AIDE repo contains the final working project. This personal repo provides the interactive branch-diff experience showing exactly what changed in the migration.
 
 ## Next steps / extensions
 
