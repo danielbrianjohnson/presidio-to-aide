@@ -158,7 +158,7 @@ python -m src.main unprotect --input output/sanitized_ticket.txt --output-dir ou
 To see the clean 6-file migration diff:
 
 ```bash
-git diff presidio..protegrity
+git diff presidio..protegrity --stat
 ```
 
 > **Note:** This repo is also published under the [Protegrity Developer Edition community-solutions](https://github.com/Protegrity-Developer-Edition) repository. The AIDE repo contains the final working project. This personal repo provides the interactive branch-diff experience showing exactly what changed in the migration.
