@@ -13,3 +13,4 @@ env/
 output/
 .pytest_cache/
 .mypy_cache/
+*.h2d
