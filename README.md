@@ -151,11 +151,11 @@ python -m src.main unprotect --input output/sanitized_ticket.txt --output-dir ou
 
 | Branch | Contents |
 |--------|----------|
-| `main` | AIDE migration (final state) with both blog posts |
-| `protegrity` | Same as main |
-| `presidio` | Original Presidio baseline before migration |
+| `main` | Full project: AIDE code + unprotect capability + docs + blog posts |
+| `protegrity` | Code-only: the 6-file migration from Presidio to AIDE |
+| `presidio` | Code-only: original Presidio baseline |
 
-Diff the branches to see exactly what changed: `git diff presidio..main`
+Diff the migration: `git diff presidio..protegrity`
 
 ## Next steps / extensions
 
