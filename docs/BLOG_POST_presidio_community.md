@@ -84,4 +84,4 @@ With Presidio's redaction, this isn't possible. There's nothing left to reverse.
 
 Presidio gave me solid PII detection and got the project off the ground fast. When I needed format-preserving tokenization and reversible protection, Protegrity AI Developer Edition picked up where Presidio left off, while keeping Presidio's detection under the hood. The migration was an afternoon of work, mostly because I'd kept the Presidio code isolated.
 
-The repo has a `presidio` branch (baseline) and a `protegrity` branch (migrated). Run `git diff presidio..protegrity` to see exactly what changed: [github.com/danielbrianjohnson/presidio-to-aide](https://github.com/danielbrianjohnson/presidio-to-aide).
+The repo has a `presidio` branch (baseline) and a `protegrity` branch (migrated). Run `git diff presidio..protegrity --stat` to see exactly what changed: [github.com/danielbrianjohnson/presidio-to-aide](https://github.com/danielbrianjohnson/presidio-to-aide).
