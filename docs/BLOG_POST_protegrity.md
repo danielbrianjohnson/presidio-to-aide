@@ -1,6 +1,6 @@
 # From Detection to Protection: Making PII-Safe AI Pipelines Actually Useful
 
-Every support team has the same problem. Tickets come in full of sensitive data (names, emails, social security numbers, credit card numbers) and that data needs to go somewhere. Into an AI routing model. Into an analytics pipeline. Into a trend report that someone in product management reads on Monday morning.
+Every support team has the same problem. Tickets come in full of sensitive data (names, emails, phone numbers, addresses, and in some cases even more sensitive identifiers) and that data needs to go somewhere. Into an AI routing model. Into an analytics pipeline. Into a trend report that someone in product management reads on Monday morning.
 
 The obvious answer is: strip the PII before it moves downstream. And that works. Until it doesn't.
 
@@ -27,10 +27,10 @@ Protegrity AI Developer Edition (AIDE) takes a different approach. Instead of de
 The same ticket, protected with AIDE:
 
 ```
-Customer: [PERSON]7ro8 lfU[/PERSON]
-Email: [EMAIL]tK9x.pLm3@example.com[/EMAIL]
-Phone: [PHONE](415) 555-8832[/PHONE]
-Account: [ACCOUNT]8827-4401-2290[/ACCOUNT]
+Customer: [PERSON]Pf8q4 kLXJbD7[/PERSON]
+Email: [EMAIL_ADDRESS]WBd7g.Vl1WTmL@example.com[/EMAIL_ADDRESS]
+Phone: [PHONE_NUMBER](157) 557-5056[/PHONE_NUMBER]
+Account Number: [ACCOUNT_NUMBER]81124662[/ACCOUNT_NUMBER]
 Issue: I've been charged twice for my subscription renewal...
 ```
 

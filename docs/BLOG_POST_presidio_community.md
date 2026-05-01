@@ -1,6 +1,6 @@
 # Adding Reversible Tokenization to a Presidio Pipeline with Protegrity AI Developer Edition
 
-I've been using Microsoft Presidio for PII detection in a CLI tool that sanitizes support tickets. It works well. Point it at text, get back detected entities, redact or mask as needed. For a side project processing customer support tickets (names, emails, SSNs, credit card numbers), I had a working pipeline in about an hour. Presidio's analyzer is accurate, the recognizer registry is extensible, and for straightforward detection-and-redact workflows, it just works.
+I've been using Microsoft Presidio for PII detection in a CLI tool that sanitizes support tickets. It works well. Point it at text, get back detected entities, redact or mask as needed. For a side project processing customer support tickets (names, emails, phone numbers, addresses, and potentially more sensitive identifiers), I had a working pipeline in about an hour. Presidio's analyzer is accurate, the recognizer registry is extensible, and for straightforward detection-and-redact workflows, it just works.
 
 But I hit a wall when my use case evolved.
 
@@ -45,15 +45,15 @@ Presidio redaction:
 Customer: <PERSON>
 Email: <EMAIL_ADDRESS>
 Phone: <PHONE_NUMBER>
-SSN: <US_SSN>
+Account Number: <ACCOUNT_NUMBER>
 ```
 
 AIDE tokenization:
 ```
-Customer: [PERSON]7ro8 lfU[/PERSON]
-Email: [EMAIL]tK9x.pLm3@example.com[/EMAIL]
-Phone: [PHONE](415) 555-8832[/PHONE]
-SSN: [SSN]284-91-3056[/SSN]
+Customer: [PERSON]Pf8q4 kLXJbD7[/PERSON]
+Email: [EMAIL_ADDRESS]WBd7g.Vl1WTmL@example.com[/EMAIL_ADDRESS]
+Phone: [PHONE_NUMBER](157) 557-5056[/PHONE_NUMBER]
+Account Number: [ACCOUNT_NUMBER]81124662[/ACCOUNT_NUMBER]
 ```
 
 The second version is still usable data. An AI model can distinguish between customers, route tickets, analyze patterns. It just never sees real PII.
